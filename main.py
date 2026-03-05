@@ -32,12 +32,14 @@ class TaskManager():
                 f.write(f"{task.title},{task.priority},{task.done}\n")
 
     def load(self, filename):
-        self.tasks = []
-        with open(filename, "r") as f:
-            for line in f:
-                title, priority, done = line.strip().split(",")
-                done = done == "True"
-                self.tasks.append(Task(title, priority, done))
+        try:
+            with open(filename, "r") as f:
+                for line in f:
+                    title, priority, done = line.strip().split(",")
+                    done = done == "True"
+                    self.tasks.append(Task(title, priority, done))
+        except FileNotFoundError:
+            print("Файл не найден, начинаем с пустого списка")
 
 
 manager = TaskManager()
